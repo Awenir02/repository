@@ -1,47 +1,1287 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import Header from "./Header.vue";
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div class="Head">
+    <Header />
+    <div class="header-down">
+      <div class="container">
+        <div class="header-title">
+          SOLID PARFUME AND<br />
+          CENTED CANDLES FOR<br />
+          COZY HOME<br />
+        </div>
+        <button class="header-button">Shop now</button>
+      </div>
+      <div class="img-container" style="width: 100%">
+        <div style="width: 100%; max-width: 768px; height: 400px; overflow: hidden">
+          <img
+            class="woman"
+            src="\images\Woman.png"
+            alt="solidparfume"
+            style="object-fit: cover; width: 100%; height: 100%; object-position: top"
+          />
+        </div>
+      </div>
     </div>
-  </header>
+    <img src="\images\Woman.png" alt="Large Image" class="large-image" />
+    <img src="\images\svecha.png" alt="Small Image" class="small-image" />
 
-  <main>
-    <TheWelcome />
-  </main>
+    <div class="txtcontainer">
+      <div class="txt1">All Natural Ingredients</div>
+      <div class="txt2">
+        Believing that quality will foster radiance and inspire overall sense of well being
+      </div>
+    </div>
+  </div>
+  <div class="catalogue">
+    <div class="catalogue-container">
+      <div class="catalogue-title">Shop by categories</div>
+      <div class="catalogue-images">
+        <div class="image-wrapper" style="left: 0%">
+          <div class="image-overlay">
+            <div class="overlay-text">Solid Parfume</div>
+          </div>
+          <div style="width: 594px; height: 400px; overflow: hidden">
+            <img
+              class="images1"
+              src="\images\solidparfume.jpg"
+              alt="solidparfume"
+              style="object-fit: cover; width: 100%; height: 100%"
+            />
+          </div>
+        </div>
+        <div class="image-wrapper" style="left: 0%; top: 430px">
+          <div class="image-overlay">
+            <div class="overlay-text">Solid Parfume</div>
+          </div>
+          <div style="width: 594px; height: 400px; overflow: hidden">
+            <img
+              class="images2"
+              src="\images\scantedovals.jpg"
+              alt="scantedovals"
+              style="object-fit: cover; width: 100%; height: 100%"
+            />
+          </div>
+        </div>
+        <div class="image-wrapper" style="left: 50%">
+          <div class="image-overlay1">
+            <div class="overlay-text">Solid Parfume</div>
+          </div>
+          <div style="width: 594px; height: 830px; overflow: hidden">
+            <img
+              class="images3"
+              src="\images\scantedcandles.jpg"
+              alt="scantedcandles"
+              style="object-fit: cover; width: 100%; height: 100%"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="list">
+    <div class="list-container">
+      <div class="popular-flavors">POPULAR FLAVORS</div>
+      <div class="scroll-container">
+        <button class="scroll-button left" @click="scrollLeft">&#10094;</button>
+        <div class="card-line" ref="cardLine">
+          <div class="card-container" v-for="(card, index) in cards1" :key="index">
+            <div class="card-image" @click="toggleHeart(index)">
+              <img
+                :src="card.isLiked ? '/images/heart_filled.png' : '/images/heart_icn.png'"
+                alt="heart"
+                :class="{ 'heart-animation': card.isLiked }"
+              />
+              <img
+                src="/images/lock.png"
+                alt="lock"
+                class="lock-icon"
+                style="width: 14px; height: 16px"
+              />
+            </div>
+            <img :src="card.image" :alt="card.alt" class="card-main-image" />
+            <button class="add-to-bag">Add to Bag</button>
+            <div class="card-text">
+              {{ card.title }}<br />
+              {{ card.subtitle }}<br />
+              {{ card.price }}<br />
+            </div>
+          </div>
+        </div>
+        <button class="scroll-button right" @click="scrollRight">&#10095;</button>
+      </div>
+      <!-- Индикаторы -->
+      <div class="indicators">
+        <div
+          v-for="(indicator, index) in indicators"
+          :key="index"
+          class="indicator"
+          :class="{ active: currentGroup === index }"
+          @click="scrollToGroup(index)"
+        ></div>
+      </div>
+    </div>
+  </div>
+  <div class="catalogue">
+    <div class="blog-container">
+      <div class="catalogue-title">Read our Blog</div>
+      <div class="catalogue-images">
+        <div class="image-wrapper1" style="left: 0%">
+          <div class="blog-overlay">
+            <div class="blog-text">Our Charity Mission</div>
+          </div>
+          <div style="width: 490px; height: 700px; overflow: hidden">
+            <img
+              class="imagesblog1"
+              src="\images\blog1.jpg"
+              alt="solidparfume"
+              style="object-fit: cover; width: 100%; height: 100%"
+            />
+          </div>
+        </div>
+        <div class="image-wrapper1" style="left: 42%; top: 0px">
+          <div class="blog-overlay">
+            <div class="blog-text">Why Solid?</div>
+          </div>
+          <div style="width: 282px; height: 400px; overflow: hidden">
+            <img
+              class="imagesblog2"
+              src="\images\blog2.jpg"
+              alt="scantedovals"
+              style="object-fit: cover; width: 100%; height: 100%"
+            />
+          </div>
+        </div>
+        <div class="image-wrapper1" style="left: 67%">
+          <div class="blog-overlay">
+            <div class="blog-text">POV</div>
+          </div>
+          <div style="width: 382px; height: 316px; overflow: hidden">
+            <img
+              class="imagesblog3"
+              src="\images\blog3.jpg"
+              alt="scantedcandles"
+              style="object-fit: cover; width: 100%; height: 100%"
+            />
+          </div>
+        </div>
+        <div class="image-wrapper1" style="left: 42%; top: 430px">
+          <div class="blog-overlay">
+            <div class="blog-text">Our Sustainable Practice</div>
+          </div>
+          <div style="width: 698px; height: 270px; overflow: hidden">
+            <img
+              class="imagesblog4"
+              src="\images\blog4.jpg"
+              alt="scantedovals"
+              style="object-fit: cover; width: 100%; height: 100%"
+            />
+          </div>
+        </div>
+        <button class="blog-button">Read more in our Blog</button>
+      </div>
+    </div>
+  </div>
+  <div class="list">
+    <div class="list-container">
+      <div class="popular-flavors">You may also like</div>
+      <div class="scroll-container">
+        <button class="scroll-button left" @click="scrollLeft">&#10094;</button>
+        <div class="card-line" ref="cardLine">
+          <div class="card-container" v-for="(card, index) in cards2" :key="index">
+            <div class="card-image" @click="toggleHeart(index)">
+              <img
+                :src="card.isLiked ? '/images/heart_filled.png' : '/images/heart_icn.png'"
+                alt="heart"
+                :class="{ 'heart-animation': card.isLiked }"
+              />
+              <img
+                src="/images/lock.png"
+                alt="lock"
+                class="lock-icon"
+                style="width: 14px; height: 16px"
+              />
+            </div>
+            <img :src="card.image" :alt="card.alt" class="card-main-image" />
+            <button class="add-to-bag">Add to Bag</button>
+            <div class="card-text">
+              {{ card.title }}<br />
+              {{ card.subtitle }}<br />
+              {{ card.price }}<br />
+            </div>
+          </div>
+        </div>
+        <button class="scroll-button right" @click="scrollRight">&#10095;</button>
+      </div>
+      <!-- Индикаторы -->
+      <div class="indicators">
+        <div
+          v-for="(indicator, index) in indicators"
+          :key="index"
+          class="indicator"
+          :class="{ active: currentGroup === index }"
+          @click="scrollToGroup(index)"
+        ></div>
+      </div>
+    </div>
+  </div>
+  <div class="touch">
+    <div>
+      <img src="\images\photo.png" alt="" class="photo" />
+    </div>
+    <div class="get-in-touch">
+      <div class="get-in-touch-text-height">GET IN TOUCH</div>
+      <div class="get-in-touch-text">
+        Get daily expert perfume tips, special temporal promotions and an extra discount for
+        internet payments.
+      </div>
+      <div class="email-input">
+        <input type="email" placeholder="Enter your email" />
+      </div>
+      <div class="get-in-touch-text">
+        By clicking OK, I agree to the <a href="#">Terms and Conditions</a> and the
+        <a href="#">Privacy Policy</a>
+      </div>
+      <button class="Submit">Submit</button>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="footer-container">
+      <div class="vector">
+        <img class="vectorimg" src="\images\VectorWhite.png" alt="vector" />
+      </div>
+      <div class="footer-nav">
+        <ul>
+          <li><a href="" style="font-weight: bold">Products</a></li>
+          <li><a href="">Solid parfume</a></li>
+          <li><a href="">Scented Ovsls</a></li>
+          <li><a href="">Scented Candles</a></li>
+          <li><a href="" style="font-weight: bold">About us</a></li>
+          <li><a href="">Our story</a></li>
+          <li><a href="">Blog</a></li>
+          <li><a href="">Contacts</a></li>
+          <li><a href="" style="font-weight: bold">Social</a></li>
+          <li><a href="">Instagram</a></li>
+          <li><a href="">Twitter</a></li>
+          <li><a href="">Facebook</a></li>
+          <li><a href="">60 Midway Road, Suite 12</a></li>
+          <li><a href="">Green Bay WI 54328</a></li>
+          <li><a href="">407-280-4690</a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy;2022 SV Shop. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<script>
+export default {
+  data() {
+    return {
+      cards1: [
+        {
+          image: "/images/card1.png",
+          alt: "card1",
+          title: "Boulevard Saint Germain",
+          subtitle: "Scented Oral",
+          price: "$35.00",
+        },
+        {
+          image: "/images/card2.png",
+          alt: "card2",
+          title: "Boulevard Saint Germain",
+          subtitle: "Scented Oral",
+          price: "$35.00",
+        },
+        {
+          image: "/images/card3.png",
+          alt: "card3",
+          title: "Bergamot",
+          subtitle: "Scented Candle",
+          price: "$69.00",
+        },
+        {
+          image: "/images/card4.png",
+          alt: "card4",
+          title: "Odour Removing Candle with Basil",
+          subtitle: "Scented Candle",
+          price: "$82.00",
+        },
+        {
+          image: "/images/card1.png",
+          alt: "card1",
+          title: "Boulevard Saint Germain",
+          subtitle: "Scented Oral",
+          price: "$35.00",
+        },
+        {
+          image: "/images/card2.png",
+          alt: "card2",
+          title: "Boulevard Saint Germain",
+          subtitle: "Scented Oral",
+          price: "$35.00",
+        },
+        {
+          image: "/images/card3.png",
+          alt: "card3",
+          title: "Bergamot",
+          subtitle: "Scented Candle",
+          price: "$69.00",
+        },
+        {
+          image: "/images/card4.png",
+          alt: "card4",
+          title: "Odour Removing Candle with Basil",
+          subtitle: "Scented Candle",
+          price: "$82.00",
+        },
+        {
+          image: "/images/card1.png",
+          alt: "card1",
+          title: "Boulevard Saint Germain",
+          subtitle: "Scented Oral",
+          price: "$35.00",
+        },
+        {
+          image: "/images/card2.png",
+          alt: "card2",
+          title: "Boulevard Saint Germain",
+          subtitle: "Scented Oral",
+          price: "$35.00",
+        },
+        {
+          image: "/images/card3.png",
+          alt: "card3",
+          title: "Bergamot",
+          subtitle: "Scented Candle",
+          price: "$69.00",
+        },
+        {
+          image: "/images/card4.png",
+          alt: "card4",
+          title: "Odour Removing Candle with Basil",
+          subtitle: "Scented Candle",
+          price: "$82.00",
+        },
+      ],
+      currentIndex: 0, // Текущий индекс первой видимой карточки
+      indicators: [0, 1, 2], // Индикаторы для 3 групп карточек
+      currentGroup: 0, // Текущая группа карточек
+
+      cards2: [
+        {
+          image: "/images/like1.png",
+          alt: "card1",
+          title: "Rose Frankincense & Patchouli",
+          subtitle: "Scented Candle",
+          price: "$105.00",
+        },
+        {
+          image: "/images/like2.png",
+          alt: "card2",
+          title: "Rose Frankincense & Patchouli",
+          subtitle: "Scented Candle",
+          price: "$105.00",
+        },
+        {
+          image: "/images/like3.png",
+          alt: "card3",
+          title: "Rose Frankincense & Patchouli",
+          subtitle: "Scented Candle",
+          price: "$105.00",
+        },
+        {
+          image: "/images/like4.png",
+          alt: "card4",
+          title: "Rose Frankincense & Patchouli",
+          subtitle: "Scented Candle",
+          price: "$196.00",
+        },
+        {
+          image: "/images/like1.png",
+          alt: "card1",
+          title: "Rose Frankincense & Patchouli",
+          subtitle: "Scented Candle",
+          price: "$105.00",
+        },
+        {
+          image: "/images/like2.png",
+          alt: "card2",
+          title: "Rose Frankincense & Patchouli",
+          subtitle: "Scented Candle",
+          price: "$105.00",
+        },
+        {
+          image: "/images/like3.png",
+          alt: "card3",
+          title: "Rose Frankincense & Patchouli",
+          subtitle: "Scented Candle",
+          price: "$105.00",
+        },
+        {
+          image: "/images/like4.png",
+          alt: "card4",
+          title: "Rose Frankincense & Patchouli",
+          subtitle: "Scented Candle",
+          price: "$196.00",
+        },
+        {
+          image: "/images/like1.png",
+          alt: "card1",
+          title: "Rose Frankincense & Patchouli",
+          subtitle: "Scented Candle",
+          price: "$105.00",
+        },
+        {
+          image: "/images/like2.png",
+          alt: "card2",
+          title: "Rose Frankincense & Patchouli",
+          subtitle: "Scented Candle",
+          price: "$105.00",
+        },
+        {
+          image: "/images/like3.png",
+          alt: "card3",
+          title: "Rose Frankincense & Patchouli",
+          subtitle: "Scented Candle",
+          price: "$105.00",
+        },
+        {
+          image: "/images/like4.png",
+          alt: "card4",
+          title: "Rose Frankincense & Patchouli",
+          subtitle: "Scented Candle",
+          price: "$196.00",
+        },
+      ],
+      currentIndex: 0, // Текущий индекс первой видимой карточки
+      indicators: [0, 1, 2], // Индикаторы для 3 групп карточек
+      currentGroup: 0, // Текущая группа карточек
+    };
+  },
+  computed: {
+    visibleCards() {
+      // Возвращаем 4 карточки, начиная с текущего индекса
+      return this.cards1.slice(this.currentIndex, this.currentIndex + 4);
+    },
+  },
+  methods: {
+    toggleHeart(index) {
+      // Переключаем состояние лайка
+      this.cards1[index].isLiked = !this.cards1[index].isLiked;
+    },
+    scrollLeft() {
+      if (this.currentIndex > 0) {
+        this.currentIndex -= 4; // Прокручиваем на 4 карточки влево
+      } else {
+        this.currentIndex = this.cards1.length - 4; // Бесконечная прокрутка: переходим к концу
+      }
+      this.updateCurrentGroup();
+      this.scrollToCurrentIndex();
+    },
+    scrollRight() {
+      if (this.currentIndex + 4 < this.cards1.length) {
+        this.currentIndex += 4; // Прокручиваем на 4 карточки вправо
+      } else {
+        this.currentIndex = 0; // Бесконечная прокрутка: переходим к началу
+      }
+      this.updateCurrentGroup();
+      this.scrollToCurrentIndex();
+    },
+    scrollToCurrentIndex() {
+      const cardLine = this.$refs.cardLine;
+      const cardWidth = cardLine.querySelector(".card-container").offsetWidth;
+      const gap = 50; // Расстояние между карточками
+      cardLine.scrollTo({
+        left: this.currentIndex * (cardWidth + gap),
+        behavior: "smooth",
+      });
+    },
+    updateCurrentGroup() {
+      // Обновляем текущую группу карточек
+      this.currentGroup = Math.floor(this.currentIndex / 4);
+    },
+    scrollToGroup(groupIndex) {
+      // Прокручиваем к выбранной группе карточек
+      this.currentIndex = groupIndex * 4;
+      this.currentGroup = groupIndex;
+      this.scrollToCurrentIndex();
+    },
+  },
+  mounted() {
+    // Обновляем индикаторы при изменении размера окна
+    window.addEventListener("resize", this.updateCurrentGroup);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.updateCurrentGroup);
+  },
+};
+</script>
+<style>
+@font-face {
+  font-family: Mukta; /* Гарнитура шрифта */
+  src: url(/fonts/MuktaVaani-Light.ttf); /* Путь к файлу со шрифтом */
+}
+@font-face {
+  font-family: Marcellus; /* Гарнитура шрифта */
+  src: url(/fonts/MarcellusSC-Regular.ttf); /* Путь к файлу со шрифтом */
+}
+.header-down {
+  background-color: #edebe8;
+  height: 863px; /* Высота контейнера (можно изменить) */
+  position: relative;
+}
+.container {
+  //position: absolute;
+  left: 351px;
+  top: 180px;
+  height: 374px;
+  flex-direction: column;
+  display: flex;
+  /justify-content: space-between; /* Распределение пространства между элементами */
+  padding-top: 5%;
+}
+.header-title {
+  //position: absolute;
+  //left: 0;
+  //top: 0; /* Текст сверху */
+  //text-align: center;
+  padding-left: 5%;
+  //padding-top: 10%; /* Отступ сверху */
+  margin: 0 0; /* Убираем лишний margin */
+  font-size: 62px;
+  font-weight: 400;
+  column-count: 1; /* Разделение текста на три колонки */
+  gap: 10px; /* Расстояние между колонками */
+  color: #59260b;
+  font-family: Marcellus;
+  max-width: 700px;
 }
 
-.logo {
+.header-button {
+  background-color: #59260b;
+  padding: 14px 28px;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 300;
+  font-family: Pompadur;
+  text-decoration: none;
+  position: relative;
+  //left: 0;
+  //bottom: 200px; /* Кнопка снизу */
+  margin: 5% 12% 5%; /* Отступ снизу (5%) и слева (10%) */
+  width: 170px;
+}
+
+.large-image {
+  position: absolute;
+  top: 110px;
+  left: 55%;
+  width: 40%;
+  height: auto;
+}
+
+.small-image {
+  position: absolute;
+  top: 474px;
+  left: 50%;
+  width: 22%;
+  height: auto;
+}
+.txtcontainer {
+  //width: 50%;
+  position: relative;
+  margin: 10% 20%;
+  border-right: 2px solid #c5b0aa;
+  border-left: 2px solid #c5b0aa;
+}
+.txt1 {
+  text-align: center;
+  font-size: 72px;
+  color: #59260b;
+  font-family: Marcellus;
+}
+.txt2 {
+  text-align: center;
+  font-size: 36px;
+  color: #59260b;
+  font-family: Mukta;
+}
+.catalogue {
+  width: 100%;
+  margin: auto;
+}
+.catalogue-container {
+  margin: auto;
+  position: relative;
+  max-width: 1218px;
+  height: 1100px;
+}
+.catalogue-title {
+  text-align: center;
+  margin: auto;
+  width: 405px;
+  height: 60px;
+  font-size: 48px;
+  font-weight: 400;
+  font-family: Marcellus;
+  padding-bottom: 20px;
+}
+.catalogue-images {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1218px; /* Ограничиваем ширину контейнера */
+}
+.image-wrapper {
+  position: absolute; /* Абсолютное позиционирование для обертки */
+  border: 2px solid #c5b0aa;
+  width: 60%;
+  max-width: 594px;
+  height: 400px;
+  overflow: hidden;
+}
+.image-wrapper:nth-child(1) {
+  left: 0;
+  top: 0;
+  height: 400px;
+}
+
+.image-wrapper:nth-child(2) {
+  left: 0;
+  top: 430px;
+  height: 400px;
+}
+
+.image-wrapper:nth-child(3) {
+  left: 50%;
+  top: 0;
+  height: 830px;
+}
+.images1,
+.images2,
+.images3 {
   display: block;
-  margin: 0 auto 2rem;
+  width: 100%;
+  height: 400px;
+}
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #edebe8; /* Цвет фона с прозрачностью */
+  color: #000000; /* Цвет текста */
+  //padding: 10px; /* Отступы внутри поля */
+  text-align: center; /* Выравнивание текста по центру */
+  z-index: 1; /* Чтобы текст был поверх изображения */
+  text-align: center;
+  margin: 0 auto;
+}
+.image-overlay1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #59260b; /* Цвет фона с прозрачностью */
+  color: white; /* Цвет текста */
+  //padding: 10px; /* Отступы внутри поля */
+  text-align: center; /* Выравнивание текста по центру */
+  z-index: 1; /* Чтобы текст был поверх изображения */
+  text-align: center;
+  margin: 0 auto;
+}
+.overlay-text {
+  font-size: 17px;
+  font-weight: 300px;
+  top: 30%;
+  position: relative;
+  font-family: Mukta;
+  font-weight: bold;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+.photo {
+  width: 100%;
+  height: 100%;
+}
+.img-container {
+  display: none;
+}
+/* Скрываем стрелки на мобильных устройствах */
+@media (max-width: 768px) {
+  .scroll-button {
+    display: none;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  .card-line {
+    overflow-x: scroll; /* Горизонтальный скролл на мобильных устройствах */
+  }
+  .photo {
+    width: 100%;
+    height: 100%;
+  }
+  .img-container {
+    display: block;
+    position: relative;
+  }
+  .container {
+    height: 200px;
+  }
+}
+.blog {
+  width: 100%;
+  margin: auto;
+}
+.blog-container {
+  margin: auto;
+  position: relative;
+  max-width: 1218px;
+  height: 1100px;
+}
+.blog-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #edebe8; /* Цвет фона с прозрачностью */
+  color: #000000; /* Цвет текста */
+  //padding: 10px; /* Отступы внутри поля */
+  text-align: center; /* Выравнивание текста по центру */
+  z-index: 1; /* Чтобы текст был поверх изображения */
+  text-align: center;
+  margin: 0 auto;
+}
+.blog-text {
+  font-size: 17px;
+  font-weight: 300px;
+  top: 40%;
+  position: relative;
+  font-family: Mukta;
+  font-weight: bold;
+}
+.image-wrapper1 {
+  position: absolute; /* Абсолютное позиционирование для обертки */
+  border: 2px solid #c5b0aa;
+  //max-width: 594px;
+  height: 400px;
+  overflow: hidden;
+}
+.image-wrapper1:nth-child(1) {
+  left: 0;
+  top: 0;
+  height: 700px;
+}
+
+.image-wrapper1:nth-child(2) {
+  left: 0;
+  top: 430px;
+  height: 400px;
+}
+
+.image-wrapper1:nth-child(3) {
+  left: 50%;
+  top: 0;
+  height: 320px;
+  max-width: 386px;
+}
+.image-wrapper1:nth-child(4) {
+  left: 50%;
+  top: 0;
+  height: 270px;
+}
+
+.imagesblog1,
+.imagesblog2,
+.imagesblog3,
+.imagesblog4 {
+  display: block;
+  width: 100%;
+  height: 700px;
+}
+.blog-button {
+  width: 32%;
+  height: 54px;
+  top: 350px;
+  position: absolute;
+  left: 67%;
+  color: white;
+  background-color: #59260b;
+  font-family: Mukta;
+}
+.touch {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.get-in-touch {
+  text-align: center;
+  padding: 20px;
+  max-width: 590px;
+  max-height: 399px;
+  display: flex;
+  flex-direction: column;
+  position: relative; /* Для позиционирования кнопки */
+  gap: 20px;
+}
+
+.get-in-touch .email-input {
+  display: flex;
+  justify-content: left;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.get-in-touch .email-input input {
+  font-size: 14px;
+  border: none;
+  border-bottom: 1px solid #59260b;
+  width: 70%;
+  color: #c5b0aa;
+  font-family: Mukta;
+}
+
+.Submit {
+  padding: 14px 28px;
+  font-size: 17px;
+  background-color: #edebe8;
+  color: black;
+  border: 1px solid #59260b;
+  cursor: pointer;
+  position: relative;
+  align-self: flex-start; /* Прижимаем кнопку к левому краю */
+  margin-top: auto; /* Кнопка прижимается к нижней части контейнера */
+  font-family: Mukta;
+}
+
+.Submit:hover {
+  background-color: #4a1f09;
+}
+.get-in-touch-text {
+  font-size: 17px;
+  font-weight: 300px;
+  top: 40%;
+  position: relative;
+  text-align: left;
+  font-family: Mukta;
+}
+.get-in-touch-text-height {
+  font-size: 72px;
+  font-weight: 400px;
+  top: 40%;
+  position: relative;
+  text-align: left;
+  color: #59260b;
+  font-family: Marcellus;
+}
+.footer {
+  background-color: #59260b;
+  padding: 40px;
+  display: flex;
+  justify-content: center; /* Центрирование по горизонтали */
+  align-items: center; /* Центрирование по вертикали */
+  flex-direction: column; /* Элементы располагаются вертикально */
+}
+
+.footer-container {
+  max-width: 1200px; /* Ограничиваем ширину контейнера */
+  width: 100%;
+  position: relative; /* Для позиционирования изображения */
+}
+
+.vector {
+  position: absolute; /* Абсолютное позиционирование для изображения */
+  top: 0; /* Позиционирование сверху */
+  left: 0; /* Позиционирование слева */
+}
+
+.footer-nav ul {
+  list-style-type: none;
+  column-count: 4; /* Разделение на 4 колонки */
+  column-gap: 20px; /* Расстояние между колонками */
+  padding: 0;
+  margin: 0 auto; /* Центрирование списка */
+  width: 80%; /* Ширина списка (можно изменить) */
+}
+
+.footer-nav ul li {
+  padding: 10px 0; /* Отступы между элементами списка */
+  break-inside: avoid; /* Предотвращает разрыв элементов списка между колонками */
+}
+
+.footer-nav ul li a {
+  color: white;
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.5s;
+  font-size: 17px;
+  font-family: Mukta;
+}
+
+.footer-nav ul li a:hover {
+  opacity: 1;
+}
+
+.footer-bottom {
+  color: white;
+  padding: 10px;
+  text-align: center;
+  margin-top: 20px; /* Отступ сверху для копирайта */
+  font-family: Mukta;
+}
+@media (max-width: 1220px) {
+  .image-wrapper {
+    width: 45%;
+  }
+  .image-wrapper1 {
+    width: 40%;
+  }
+  .image-wrapper1:nth-child(1) {
   }
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  .image-wrapper1:nth-child(2) {
+    width: 23%;
+  }
+
+  .image-wrapper1:nth-child(3) {
+    width: 32%;
+  }
+  .image-wrapper1:nth-child(4) {
+    width: 57%;
+  }
+}
+@media (max-width: 1000px) {
+  .header-title {
+    font-size: 42px;
+    width: 470px;
+  }
+  .header-button {
+    margin: 5% 1% 5%;
+  }
+  .txtcontainer {
+    margin: 5% 5%;
+  }
+  .txt1 {
+    font-size: 48px;
+  }
+  .txt2 {
+    font-size: 36px;
+  }
+  .image-wrapper {
+    width: 40%;
+  }
+  .image-wrapper1 {
+    width: 40%;
+  }
+  .header-title {
+    padding-left: 1%;
+  }
+  .large-image {
+    position: absolute;
+    top: 110px;
+    left: 50%;
+    width: 48%;
+    height: auto;
+  }
+
+  .small-image {
+    position: absolute;
+    top: 474px;
+    left: 40%;
+    width: 30%;
+    height: auto;
+  }
+  @media (max-width: 768px) {
+    .large-image {
+      display: none; /* Скрыть маленькое изображение */
+    }
+
+    .small-image {
+      display: none; /* Скрыть маленькое изображение */
+    }
+
+    .header-down {
+      height: auto; /* Изменяем высоту контейнера */
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Центрируем содержимое по вертикали */
+      align-items: center; /* Центрируем содержимое по горизонтали */
+    }
+
+    .container {
+      padding-top: 0; /* Убираем отступ сверху */
+      align-items: center; /* Центрируем элементы внутри контейнера */
+      text-align: center; /* Центрируем текст */
+    }
+
+    .header-title {
+      font-size: 32px; /* Уменьшаем размер шрифта для мобильных устройств */
+    }
+
+    .header-button {
+      margin: 20px 0; /* Добавляем отступы для кнопки */
+    }
+
+    .txtcontainer {
+      margin: 0; /* Убираем отступы для текстового контейнера */
+      border: none; /* Убираем рамку */
+    }
+
+    .txt1 {
+      font-size: 36px; /* Уменьшаем размер текста для заголовка */
+    }
+
+    .txt2 {
+      font-size: 18px; /* Уменьшаем размер текста для описания */
+    }
+    .catalogue-title {
+      font-size: 45px;
+      width: 100%;
+    }
+    .container {
+      width: 100%;
+    }
+    .header-title {
+      width: 100%;
+    }
+  }
+}
+<style scoped > .list {
+  background-color: #edebe8;
+  padding: 20px;
+  position: relative;
+}
+.popular-flavors {
+  margin: 0 auto;
+  height: 120px;
+  text-align: center;
+  font-size: 48px;
+  font-weight: 400;
+}
+
+.list-container {
+  position: relative;
+  z-index: 1;
+}
+
+.scroll-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-line {
+  display: flex;
+  gap: 50px;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  padding: 20px 0;
+  width: 64%;
+}
+
+.card-container {
+  border: 1px solid #c5b0aa;
+  position: relative;
+  flex: 0 0 auto;
+  width: 250px;
+}
+
+.card-text {
+  text-align: center;
+  padding: 10px;
+  font-family: Mukta;
+}
+
+.card-image {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  cursor: pointer;
+}
+.card-image img {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.heart-animation {
+  animation: heartBeat 0.5s ease;
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.scroll-button {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 2;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 10px;
+}
+
+.scroll-button.left {
+  left: 0px;
+}
+
+.scroll-button.right {
+  right: 0px;
+}
+
+.indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.indicator {
+  width: 30px;
+  height: 3px;
+  background-color: #c5b0aa;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.indicator.active {
+  background-color: #59260b;
+}
+.card-main-image {
+  width: 100%; /* Ширина изображения равна ширине карточки */
+  height: 200px; /* Фиксированная высота изображения */
+  object-fit: cover; /* Обрезаем изображение, чтобы оно заполнило контейнер */
+}
+@media (max-width: 1000px) {
+  .scroll-button {
+    display: none;
+  }
+
+  .card-line {
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  .card-container {
+    width: 200px;
+  }
+}
+@media (max-width: 480px) {
+  .footer-nav ul {
+    list-style-type: none;
+    column-count: 2; /* Разделение на 4 колонки */
+    column-gap: 20px; /* Расстояние между колонками */
+    padding: 0;
+    margin: 0 auto; /* Центрирование списка */
+    width: 80%; /* Ширина списка (можно изменить) */
+  }
+  .vector {
+    position: relative; /* Абсолютное позиционирование для изображения */
+    margin: 0 auto;
+    justify-content: center;
+  }
+  .vectorimg {
+    margin: 0 auto;
+    left: 50%;
+    position: relative;
+  }
+  .footer {
+    padding: 10px;
+  }
+  .photo {
+    display: none;
+  }
+  .get-in-touch-text-height {
+    font-size: 36px;
+    text-align: center;
+  }
+}
+.card-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-main-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+/* Затемнение + кнопка при наведении */
+.card-container:hover .card-main-image {
+  opacity: 0.5;
+}
+
+.card-container:hover .add-to-bag {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Кнопка Add to Bag */
+.add-to-bag {
+  position: absolute;
+  margin: 100px auto;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  color: black;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  border: 1px solid #59260b;
+}
+
+/* Lock Icon */
+.lock-icon {
+  position: absolute;
+  top: 0px;
+  right: 20px;
+  width: 14px;
+  height: 16px;
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .card-container:hover .card-main-image {
+    opacity: 1;
+  }
+
+  .card-container:hover .add-to-bag {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .lock-icon {
+    display: block;
   }
 }
 </style>
