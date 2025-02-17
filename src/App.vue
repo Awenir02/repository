@@ -368,9 +368,9 @@ export default {
           price: "$82.00",
         },
       ],
-      currentIndex: 0, // Текущий индекс первой видимой карточки
-      indicators: [0, 1, 2], // Индикаторы для 3 групп карточек
-      currentGroup: 0, // Текущая группа карточек
+      currentIndex: 0,
+      indicators: [0, 1, 2],
+      currentGroup: 0,
 
       cards2: [
         {
@@ -458,36 +458,34 @@ export default {
           price: "$196.00",
         },
       ],
-      currentIndex: 0, // Текущий индекс первой видимой карточки
-      indicators: [0, 1, 2], // Индикаторы для 3 групп карточек
-      currentGroup: 0, // Текущая группа карточек
+      currentIndex: 0,
+      indicators: [0, 1, 2],
+      currentGroup: 0,
     };
   },
   computed: {
     visibleCards() {
-      // Возвращаем 4 карточки, начиная с текущего индекса
       return this.cards1.slice(this.currentIndex, this.currentIndex + 4);
     },
   },
   methods: {
     toggleHeart(index) {
-      // Переключаем состояние лайка
       this.cards1[index].isLiked = !this.cards1[index].isLiked;
     },
     scrollLeft() {
       if (this.currentIndex > 0) {
-        this.currentIndex -= 4; // Прокручиваем на 4 карточки влево
+        this.currentIndex -= 4;
       } else {
-        this.currentIndex = this.cards1.length - 4; // Бесконечная прокрутка: переходим к концу
+        this.currentIndex = this.cards1.length - 4;
       }
       this.updateCurrentGroup();
       this.scrollToCurrentIndex();
     },
     scrollRight() {
       if (this.currentIndex + 4 < this.cards1.length) {
-        this.currentIndex += 4; // Прокручиваем на 4 карточки вправо
+        this.currentIndex += 4;
       } else {
-        this.currentIndex = 0; // Бесконечная прокрутка: переходим к началу
+        this.currentIndex = 0;
       }
       this.updateCurrentGroup();
       this.scrollToCurrentIndex();
@@ -495,25 +493,22 @@ export default {
     scrollToCurrentIndex() {
       const cardLine = this.$refs.cardLine;
       const cardWidth = cardLine.querySelector(".card-container").offsetWidth;
-      const gap = 50; // Расстояние между карточками
+      const gap = 50;
       cardLine.scrollTo({
         left: this.currentIndex * (cardWidth + gap),
         behavior: "smooth",
       });
     },
     updateCurrentGroup() {
-      // Обновляем текущую группу карточек
       this.currentGroup = Math.floor(this.currentIndex / 4);
     },
     scrollToGroup(groupIndex) {
-      // Прокручиваем к выбранной группе карточек
       this.currentIndex = groupIndex * 4;
       this.currentGroup = groupIndex;
       this.scrollToCurrentIndex();
     },
   },
   mounted() {
-    // Обновляем индикаторы при изменении размера окна
     window.addEventListener("resize", this.updateCurrentGroup);
   },
   beforeDestroy() {
@@ -523,40 +518,34 @@ export default {
 </script>
 <style>
 @font-face {
-  font-family: Mukta; /* Гарнитура шрифта */
-  src: url(/fonts/MuktaVaani-Light.ttf); /* Путь к файлу со шрифтом */
+  font-family: Mukta;
+  src: url(/fonts/MuktaVaani-Light.ttf);
 }
 @font-face {
-  font-family: Marcellus; /* Гарнитура шрифта */
-  src: url(/fonts/MarcellusSC-Regular.ttf); /* Путь к файлу со шрифтом */
+  font-family: Marcellus;
+  src: url(/fonts/MarcellusSC-Regular.ttf);
 }
 .header-down {
   background-color: #edebe8;
-  height: 863px; /* Высота контейнера (можно изменить) */
+  height: 863px;
   position: relative;
 }
 .container {
-  //position: absolute;
   left: 351px;
   top: 180px;
   height: 374px;
   flex-direction: column;
   display: flex;
-  /justify-content: space-between; /* Распределение пространства между элементами */
+  /justify-content: space-between;
   padding-top: 5%;
 }
 .header-title {
-  //position: absolute;
-  //left: 0;
-  //top: 0; /* Текст сверху */
-  //text-align: center;
   padding-left: 5%;
-  //padding-top: 10%; /* Отступ сверху */
-  margin: 0 0; /* Убираем лишний margin */
+  margin: 0 0;
   font-size: 62px;
   font-weight: 400;
-  column-count: 1; /* Разделение текста на три колонки */
-  gap: 10px; /* Расстояние между колонками */
+  column-count: 1;
+  gap: 10px;
   color: #59260b;
   font-family: Marcellus;
   max-width: 700px;
@@ -571,9 +560,7 @@ export default {
   font-family: Pompadur;
   text-decoration: none;
   position: relative;
-  //left: 0;
-  //bottom: 200px; /* Кнопка снизу */
-  margin: 5% 12% 5%; /* Отступ снизу (5%) и слева (10%) */
+  margin: 5% 12% 5%;
   width: 170px;
 }
 
@@ -593,7 +580,6 @@ export default {
   height: auto;
 }
 .txtcontainer {
-  //width: 50%;
   position: relative;
   margin: 10% 20%;
   border-right: 2px solid #c5b0aa;
@@ -635,10 +621,10 @@ export default {
   position: relative;
   width: 100%;
   margin: 0 auto;
-  max-width: 1218px; /* Ограничиваем ширину контейнера */
+  max-width: 1218px;
 }
 .image-wrapper {
-  position: absolute; /* Абсолютное позиционирование для обертки */
+  position: absolute;
   border: 2px solid #c5b0aa;
   width: 60%;
   max-width: 594px;
@@ -675,11 +661,10 @@ export default {
   left: 0;
   width: 100%;
   height: 70px;
-  background-color: #edebe8; /* Цвет фона с прозрачностью */
-  color: #000000; /* Цвет текста */
-  //padding: 10px; /* Отступы внутри поля */
-  text-align: center; /* Выравнивание текста по центру */
-  z-index: 1; /* Чтобы текст был поверх изображения */
+  background-color: #edebe8;
+  color: #000000;
+  text-align: center;
+  z-index: 1;
   text-align: center;
   margin: 0 auto;
 }
@@ -689,11 +674,10 @@ export default {
   left: 0;
   width: 100%;
   height: 70px;
-  background-color: #59260b; /* Цвет фона с прозрачностью */
-  color: white; /* Цвет текста */
-  //padding: 10px; /* Отступы внутри поля */
-  text-align: center; /* Выравнивание текста по центру */
-  z-index: 1; /* Чтобы текст был поверх изображения */
+  background-color: #59260b;
+  color: white;
+  text-align: center;
+  z-index: 1;
   text-align: center;
   margin: 0 auto;
 }
@@ -713,14 +697,13 @@ export default {
 .img-container {
   display: none;
 }
-/* Скрываем стрелки на мобильных устройствах */
 @media (max-width: 768px) {
   .scroll-button {
     display: none;
   }
 
   .card-line {
-    overflow-x: scroll; /* Горизонтальный скролл на мобильных устройствах */
+    overflow-x: scroll;
   }
   .photo {
     width: 100%;
@@ -750,12 +733,11 @@ export default {
   left: 0;
   width: 100%;
   height: 70px;
-  background-color: #edebe8; /* Цвет фона с прозрачностью */
-  color: #000000; /* Цвет текста */
-  //padding: 10px; /* Отступы внутри поля */
-  text-align: center; /* Выравнивание текста по центру */
-  z-index: 1; /* Чтобы текст был поверх изображения */
+  background-color: #edebe8;
+  color: #000000;
   text-align: center;
+  z-index: 1;
+  /text-align: center;
   margin: 0 auto;
 }
 .blog-text {
@@ -767,9 +749,8 @@ export default {
   font-weight: bold;
 }
 .image-wrapper1 {
-  position: absolute; /* Абсолютное позиционирование для обертки */
+  position: absolute;
   border: 2px solid #c5b0aa;
-  //max-width: 594px;
   height: 400px;
   overflow: hidden;
 }
@@ -832,7 +813,7 @@ export default {
   max-height: 399px;
   display: flex;
   flex-direction: column;
-  position: relative; /* Для позиционирования кнопки */
+  position: relative;
   gap: 20px;
 }
 
@@ -860,8 +841,8 @@ export default {
   border: 1px solid #59260b;
   cursor: pointer;
   position: relative;
-  align-self: flex-start; /* Прижимаем кнопку к левому краю */
-  margin-top: auto; /* Кнопка прижимается к нижней части контейнера */
+  align-self: flex-start;
+  margin-top: auto;
   font-family: Mukta;
 }
 
@@ -889,35 +870,35 @@ export default {
   background-color: #59260b;
   padding: 40px;
   display: flex;
-  justify-content: center; /* Центрирование по горизонтали */
-  align-items: center; /* Центрирование по вертикали */
-  flex-direction: column; /* Элементы располагаются вертикально */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .footer-container {
-  max-width: 1200px; /* Ограничиваем ширину контейнера */
+  max-width: 1200px;
   width: 100%;
-  position: relative; /* Для позиционирования изображения */
+  position: relative;
 }
 
 .vector {
-  position: absolute; /* Абсолютное позиционирование для изображения */
-  top: 0; /* Позиционирование сверху */
-  left: 0; /* Позиционирование слева */
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .footer-nav ul {
   list-style-type: none;
-  column-count: 4; /* Разделение на 4 колонки */
-  column-gap: 20px; /* Расстояние между колонками */
+  column-count: 4;
+  column-gap: 20px;
   padding: 0;
-  margin: 0 auto; /* Центрирование списка */
-  width: 80%; /* Ширина списка (можно изменить) */
+  margin: 0 auto;
+  width: 80%;
 }
 
 .footer-nav ul li {
-  padding: 10px 0; /* Отступы между элементами списка */
-  break-inside: avoid; /* Предотвращает разрыв элементов списка между колонками */
+  padding: 10px 0;
+  break-inside: avoid;
 }
 
 .footer-nav ul li a {
@@ -937,7 +918,7 @@ export default {
   color: white;
   padding: 10px;
   text-align: center;
-  margin-top: 20px; /* Отступ сверху для копирайта */
+  margin-top: 20px;
   font-family: Mukta;
 }
 @media (max-width: 1220px) {
@@ -1004,46 +985,46 @@ export default {
   }
   @media (max-width: 768px) {
     .large-image {
-      display: none; /* Скрыть маленькое изображение */
+      display: none;
     }
 
     .small-image {
-      display: none; /* Скрыть маленькое изображение */
+      display: none;
     }
 
     .header-down {
-      height: auto; /* Изменяем высоту контейнера */
+      height: auto;
       display: flex;
       flex-direction: column;
-      justify-content: center; /* Центрируем содержимое по вертикали */
-      align-items: center; /* Центрируем содержимое по горизонтали */
+      justify-content: center;
+      align-items: center;
     }
 
     .container {
-      padding-top: 0; /* Убираем отступ сверху */
-      align-items: center; /* Центрируем элементы внутри контейнера */
-      text-align: center; /* Центрируем текст */
+      padding-top: 0;
+      align-items: center;
+      text-align: center;
     }
 
     .header-title {
-      font-size: 32px; /* Уменьшаем размер шрифта для мобильных устройств */
+      font-size: 32px;
     }
 
     .header-button {
-      margin: 20px 0; /* Добавляем отступы для кнопки */
+      margin: 20px 0;
     }
 
     .txtcontainer {
-      margin: 0; /* Убираем отступы для текстового контейнера */
-      border: none; /* Убираем рамку */
+      margin: 0;
+      border: none;
     }
 
     .txt1 {
-      font-size: 36px; /* Уменьшаем размер текста для заголовка */
+      font-size: 36px;
     }
 
     .txt2 {
-      font-size: 18px; /* Уменьшаем размер текста для описания */
+      font-size: 18px;
     }
     .catalogue-title {
       font-size: 45px;
@@ -1173,9 +1154,9 @@ export default {
   background-color: #59260b;
 }
 .card-main-image {
-  width: 100%; /* Ширина изображения равна ширине карточки */
-  height: 200px; /* Фиксированная высота изображения */
-  object-fit: cover; /* Обрезаем изображение, чтобы оно заполнило контейнер */
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
 @media (max-width: 1000px) {
   .scroll-button {
@@ -1194,14 +1175,14 @@ export default {
 @media (max-width: 480px) {
   .footer-nav ul {
     list-style-type: none;
-    column-count: 2; /* Разделение на 4 колонки */
-    column-gap: 20px; /* Расстояние между колонками */
+    column-count: 2;
+    column-gap: 20px;
     padding: 0;
-    margin: 0 auto; /* Центрирование списка */
-    width: 80%; /* Ширина списка (можно изменить) */
+    margin: 0 auto;
+    width: 80%;
   }
   .vector {
-    position: relative; /* Абсолютное позиционирование для изображения */
+    position: relative;
     margin: 0 auto;
     justify-content: center;
   }
@@ -1232,8 +1213,6 @@ export default {
   object-fit: cover;
   transition: opacity 0.3s ease;
 }
-
-/* Затемнение + кнопка при наведении */
 .card-container:hover .card-main-image {
   opacity: 0.5;
 }
@@ -1243,7 +1222,6 @@ export default {
   visibility: visible;
 }
 
-/* Кнопка Add to Bag */
 .add-to-bag {
   position: absolute;
   margin: 100px auto;
@@ -1260,7 +1238,6 @@ export default {
   border: 1px solid #59260b;
 }
 
-/* Lock Icon */
 .lock-icon {
   position: absolute;
   top: 0px;

@@ -1,12 +1,8 @@
 <template>
   <header class="header">
     <div>
-      <!-- Изображение, при нажатии на которое будет появляться меню -->
       <img class="Menu" src="/images/menu-Regular.png" alt="Click me" @click.stop="toggleMenu" />
-
-      <!-- Выпадающее меню -->
       <div v-if="isMenuVisible" class="dropdown-menu" ref="dropdownMenu">
-        <!-- Изображение для закрытия меню -->
         <img src="/images/close.png" alt="Close" class="close-icon" @click="closeMenu" />
         <ul>
           <li><a href="#">Solid parfume</a></li>
@@ -36,33 +32,30 @@
 export default {
   data() {
     return {
-      isMenuVisible: false, // Состояние видимости меню
+      isMenuVisible: false,
     };
   },
   methods: {
     toggleMenu() {
-      this.isMenuVisible = !this.isMenuVisible; // Переключаем видимость меню
+      this.isMenuVisible = !this.isMenuVisible;
     },
     closeMenu() {
-      this.isMenuVisible = false; // Закрываем меню
+      this.isMenuVisible = false;
     },
     handleClickOutside(event) {
-      // Проверяем, был ли клик вне меню
       if (
         this.isMenuVisible &&
         this.$refs.dropdownMenu &&
         !this.$refs.dropdownMenu.contains(event.target)
       ) {
-        this.closeMenu(); // Закрываем меню
+        this.closeMenu();
       }
     },
   },
   mounted() {
-    // Добавляем обработчик клика на весь документ
     document.addEventListener("click", this.handleClickOutside);
   },
   beforeUnmount() {
-    // Убираем обработчик при уничтожении компонента
     document.removeEventListener("click", this.handleClickOutside);
   },
 };
@@ -70,12 +63,12 @@ export default {
 
 <style>
 @font-face {
-  font-family: Mukta; /* Гарнитура шрифта */
-  src: url(/fonts/MuktaVaani-Light.ttf); /* Путь к файлу со шрифтом */
+  font-family: Mukta;
+  src: url(/fonts/MuktaVaani-Light.ttf);
 }
 @font-face {
-  font-family: Marcellus; /* Гарнитура шрифта */
-  src: url(/fonts/MarcellusSC-Regular.ttf); /* Путь к файлу со шрифтом */
+  font-family: Marcellus;
+  src: url(/fonts/MarcellusSC-Regular.ttf);
 }
 .header {
   display: flex;
@@ -127,7 +120,7 @@ export default {
   left: 0;
   min-width: 160px;
   z-index: 1;
-  padding: 40px; /* Отступ сверху для иконки закрытия */
+  padding: 40px;
   border: 1px solid #59260b;
 }
 
@@ -136,7 +129,7 @@ export default {
   top: 10px;
   left: 10px;
   cursor: pointer;
-  width: 20px; /* Размер иконки */
+  width: 20px;
   height: 20px;
 }
 
